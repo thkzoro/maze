@@ -1,22 +1,20 @@
-mian: main.o stack.o maze.o
+# OUTPUT_OPTION = -o $@
+
+# CC = cc
+
+# COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+
+# %.o: %.c
+	# $(COMPILE.c) $(OUTPUT_OPTION) $<
+
+main: main.o stack.o maze.o
 	gcc main.o stack.o maze.o -o main
 
-main.o: main.h stack.h maze.h
-stack.o: stack.h main.h
-maze.o: maze.h main.h
+main.o stack.o maze.o: main.h
+main.o maze.o: maze.h
+main.o stack.o: stack.h
 
-main.o: main.c
-	gcc -c main.c
-
-stack.o: stack.c
-	gcc -c stack.c
-
-maze.o: maze.c
-	gcc -c maze.c
+clean:
+	-rm main *.o
 
 .PHONY: clean
-
-clean: 
-	@echo "cleanning project"
-	-rm main *.o
-	@echo "clean completed"
